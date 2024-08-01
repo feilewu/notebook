@@ -2,13 +2,15 @@
     <el-row>
       <el-col :span="6">
         <div class="grid-content ep-bg-purple">
-          <div id="main-catalog"><CatalogTree @nodeClickEvent="nodeClick"></CatalogTree></div>
+          <!-- <div id="main-catalog"><CatalogTree @nodeClickEvent="nodeClick"></CatalogTree></div> -->
+          <div id="main-catalog"><CatalogTree></CatalogTree></div>
         </div>
       </el-col>
       <el-col :span="18">
         <div class="grid-content ep-bg-purple-light">
-          <div id="main-content">  
-            <NoteContent :noteId="noteId"></NoteContent>
+          <div id="main-content">
+            <router-view />
+            <!-- <NoteContent :noteId="noteId"></NoteContent> -->
           </div>
         </div>
       </el-col>
@@ -18,15 +20,15 @@
   <script setup lang="ts">
   
   import CatalogTree from './CatalogTree.vue'
-  import NoteContent from './NoteContent.vue'
+  // import NoteContent from './NoteContent.vue'
   
-  import {ref} from 'vue'
+  // import {ref} from 'vue'
   
-  const noteId = ref('0')
+  // const noteId = ref('0')
   
-  const nodeClick = (msg: string) => {
-    noteId.value = msg
-  }
+  // const nodeClick = (msg: string) => {
+  //   noteId.value = msg
+  // }
   
   </script>
   

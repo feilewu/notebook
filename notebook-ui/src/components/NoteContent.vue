@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 
-import {watch, ref, Ref} from 'vue';
+import {onMounted, onUpdated, ref, Ref} from 'vue';
 import {getNoteById} from '../http/api'
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
@@ -43,7 +43,7 @@ interface Note {
 }
 
 const noteData: Ref<Note> = ref({
-  id: '',
+  id: '-1',
   title: '',
   content: '',
 })
@@ -58,22 +58,51 @@ const toHtml = (markdown: string): void => {
   })
 }
 
-watch(
-    () => props.noteId,
-    (noteId) => {
-        console.log("props of noteContent has changed!")
-        getNoteById(noteId as string).then(
-            (note) => {
-              if (note.data === null) {
-                alert("can not get note msg with noteId: " + noteId)
-                throw "can not get note msg with noteId: " + noteId
-              }
-              noteData.value.id = note.data.id
-              noteData.value.title = note.data.title
-              toHtml(note.data.content)
-            })
-    }
-);
+onMounted(() => {
+  getNoteById(props.noteId as string).then(
+      (note) => {
+        if (note.data === null) {
+          alert("can not get note msg with noteId: " + props.noteId)
+          throw "can not get note msg with noteId: " + props.noteId
+        }
+        noteData.value.id = note.data.id
+        noteData.value.title = note.data.title
+        toHtml(note.data.content)
+      }
+  )
+})
+
+onUpdated(() => {
+  getNoteById(props.noteId as string).then(
+      (note) => {
+        if (note.data === null) {
+          alert("can not get note msg with noteId: " + props.noteId)
+          throw "can not get note msg with noteId: " + props.noteId
+        }
+        noteData.value.id = note.data.id
+        noteData.value.title = note.data.title
+        toHtml(note.data.content)
+      }
+  )
+})
+
+
+// watch(
+//     () => props.noteId,
+//     (noteId) => {
+//         console.log("props of noteContent has changed!")
+//         getNoteById(noteId as string).then(
+//             (note) => {
+//               if (note.data === null) {
+//                 alert("can not get note msg with noteId: " + noteId)
+//                 throw "can not get note msg with noteId: " + noteId
+//               }
+//               noteData.value.id = note.data.id
+//               noteData.value.title = note.data.title
+//               toHtml(note.data.content)
+//             })
+//     }
+// );
 
 </script>
 

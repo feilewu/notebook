@@ -7,7 +7,8 @@
       node-key="id"
       lazy
       @node-click="handleNodeClick"
-    />
+      
+    ></el-tree>
   </template>
   
   <script lang="ts" setup>
@@ -45,7 +46,9 @@
 
   const handleNodeClick = (data: any) => {
     if (data.id != 0) {
-      emit('nodeClickEvent', data.id)
+      //emit('nodeClickEvent', data.id)
+      console.log(data.id)
+      window.location.href='#home/page/' + data.id
     } 
   }
 
