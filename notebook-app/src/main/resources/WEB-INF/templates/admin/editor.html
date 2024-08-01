@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>editor</title>
+<!--    <link rel="stylesheet" href="https://unpkg.com/vditor@3.10.4/dist/index.css" />-->
+<!--    <script src="https://unpkg.com/vditor@3.10.4/dist/index.min.js"></script>-->
+
+    <link rel="stylesheet" href="/static/vditor/index.css">
+    <script src="/static/vditor/index.min.js"></script>
+
+</head>
+<body>
+
+<div id="vditor" class="vditor" style="margin-top: 30px"></div>
+
+
+
+
+</body>
+
+<script>
+    window.onload = function() {
+        var vditor = new Vditor('vditor');
+        document.getElementById('vditor').append(vditor);
+    }
+</script>
+
+</html>
