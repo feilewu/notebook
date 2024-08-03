@@ -16,36 +16,23 @@
  */
 /**
  * @Author: pf_xu
- * @Date: 2024/7/26 22:07
+ * @Date: 2024/7/18 23:01
  * @email：pfxuchn@gmail.com
  */
-package tech.taole.notebook.app.entity;
+package tech.taole.notebook.app.api.dto;
+
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
-@Builder
 @NoArgsConstructor
-public class NoteEntity {
+public class CatalogDto {
 
-    private long id;
+    private String id;
 
-    private String title;
-
-    private String content;
-
-    private int authorId;
-
-    private int editorId;
-
-    private Date createTime;
-
-    private Date modifyTime;
+    private String name;
 
 }

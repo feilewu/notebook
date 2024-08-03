@@ -17,6 +17,8 @@ package tech.taole.notebook.app;
  * limitations under the License.
  */
 
+import org.h2.tools.Server;
+
 /**
  * @Author: pf_xu
  * @Date: 2024/7/16 22:21
@@ -24,6 +26,8 @@ package tech.taole.notebook.app;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
+
+        Server.createTcpServer("-tcpAllowOthers").start();
 
         JettyServer server = new JettyServer();
         server.start();

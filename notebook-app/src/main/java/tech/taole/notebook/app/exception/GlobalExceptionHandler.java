@@ -16,21 +16,28 @@
  */
 /**
  * @Author: pf_xu
- * @Date: 2024/7/18 23:01
+ * @Date: 2024/8/2 23:45
  * @email：pfxuchn@gmail.com
  */
-package tech.taole.notebook.app.entity;
+package tech.taole.notebook.app.exception;
 
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import tech.taole.notebook.app.api.Response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+@ControllerAdvice
+public class GlobalExceptionHandler {
 
-@Data
-@AllArgsConstructor
-public class CatalogEntity {
+    @ExceptionHandler(value = Exception.class)
+    @ResponseBody
+    public Response exception(Exception e) {
 
-    private String id;
+        e.printStackTrace();
 
-    private String name;
+        return Response.builder().code(500).data(e.getMessage()).build();
+
+    }
+
 
 }

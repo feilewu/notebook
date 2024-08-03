@@ -16,36 +16,37 @@
  */
 /**
  * @Author: pf_xu
- * @Date: 2024/7/26 22:07
+ * @Date: 2024/8/3 18:15
  * @email：pfxuchn@gmail.com
  */
-package tech.taole.notebook.app.entity;
+package tech.taole.notebook.app.config;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
+@Component
+@PropertySource("classpath:properties/jdbc.properties")
 @Data
-@AllArgsConstructor
-@Builder
-@NoArgsConstructor
-public class NoteEntity {
+public class JDBCProperty {
 
-    private long id;
+    @Value("${jdbc.diver.class.name}")
+    private String driverClassName;
 
-    private String title;
+    @Value("${jdbc.url}")
+    private String url;
 
-    private String content;
+    @Value("${jdbc.username}")
+    private String username;
 
-    private int authorId;
+    @Value("${jdbc.password}")
+    private String password;
 
-    private int editorId;
 
-    private Date createTime;
 
-    private Date modifyTime;
+
+
+
 
 }

@@ -21,37 +21,32 @@
  */
 package tech.taole.notebook.app.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tech.taole.notebook.app.api.dto.NoteDto;
 import tech.taole.notebook.app.entity.NoteEntity;
+import tech.taole.notebook.app.service.NoteService;
 
 @RestController
 @RequestMapping(value = "/api/note", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NoteApi {
 
+    @Autowired
+    private NoteService noteService;
+
+    @PutMapping("")
+    public Long putNote(@RequestBody NoteDto noteDto) {
+        return noteService.addOneNote(noteDto);
+    }
+
     @GetMapping("/{noteId}")
     public NoteEntity getNote(@PathVariable("noteId") String noteId) {
-
-        if (noteId.equals("1")) {
-            return NoteEntity.builder()
-                    .id("1")
-                    .title("第一篇标题")
-                    .content("# H1")
-                    .build();
-        } else if(noteId.equals("2")) {
-            return NoteEntity.builder()
-                    .id("2")
-                    .title("第二篇标题")
-                    .content("# H2")
-                    .build();
-        } else {
-            return null;
-        }
-
-
+        return noteService.getOneNote(Long.parseLong(noteId));
     }
+
+
+
+    
 
 }

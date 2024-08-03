@@ -16,36 +16,25 @@
  */
 /**
  * @Author: pf_xu
- * @Date: 2024/7/26 22:07
+ * @Date: 2024/8/3 20:54
  * @email：pfxuchn@gmail.com
  */
-package tech.taole.notebook.app.entity;
+package tech.taole.notebook.app.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
+import tech.taole.notebook.app.entity.NoteInfoEntity;
 
-import java.util.Date;
+@Mapper
+public interface NoteInfoMapper {
 
-@Data
-@AllArgsConstructor
-@Builder
-@NoArgsConstructor
-public class NoteEntity {
 
-    private long id;
+    @Insert("insert into NOTES_INFO (N_ID, PARENT_NOTE_ID, S_ID) " +
+            "values (#{noteId}, #{parentNoteId}, #{spaceId})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "ID")
+    int insertNoteInfo(NoteInfoEntity noteInfoEntity);
 
-    private String title;
 
-    private String content;
-
-    private int authorId;
-
-    private int editorId;
-
-    private Date createTime;
-
-    private Date modifyTime;
 
 }

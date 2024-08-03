@@ -32,10 +32,11 @@
     if (node.level === 0) {
       return resolve([{ id: '0', name: 'Notebook' }])
     }
-    if (node.level > 1) return resolve([])
+    //if (node.level > 1) return resolve([])
   
     setTimeout(async () => {
-      let data: AxiosResponse<Tree[]> = await getCatalogNode(node.id + '')
+      let data: AxiosResponse<Tree[]> = await getCatalogNode(node.key + '')
+      console.log(data.data)
       resolve(data.data)
     }, 500)
   }
@@ -45,11 +46,11 @@
   }>()
 
   const handleNodeClick = (data: any) => {
-    if (data.id != 0) {
+    //if (data.id != 0) {
       //emit('nodeClickEvent', data.id)
       console.log(data.id)
       window.location.href='#home/page/' + data.id
-    } 
+    //} 
   }
 
   </script>

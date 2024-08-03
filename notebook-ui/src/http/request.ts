@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const service = axios.create({
   // baseURL: VUE_APP_BASE_CONFIG.baseUrl,
-  timeout: 5000
+  timeout: 60000
 })
 
 // 请求拦截器

@@ -21,11 +21,12 @@
  */
 package tech.taole.notebook.app.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import tech.taole.notebook.app.entity.CatalogEntity;
+import tech.taole.notebook.app.api.dto.CatalogDto;
+import tech.taole.notebook.app.service.NoteService;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -33,9 +34,14 @@ import java.util.List;
 public class CatalogApi {
 
 
+    @Autowired
+    private NoteService noteService;
+
+
+
     @GetMapping("/{id}")
-    public List<CatalogEntity> getChildren(@PathVariable("id") String id) {
-        return Arrays.asList(new CatalogEntity("1", "你好dada1"), new CatalogEntity("2", "你好dadada2"));
+    public List<CatalogDto> getChildren(@PathVariable("id") String id) {
+        return noteService.getChildrenCatalog(Long.parseLong(id));
     }
 
 }
