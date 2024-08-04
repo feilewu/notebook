@@ -36,7 +36,6 @@
   
     setTimeout(async () => {
       let resp: AxiosResponse<Response> = await getCatalogNode(node.key + '')
-      console.log(resp)
       let response: Response = resp.data
       let tree: Tree[] = response.data
       resolve(tree)

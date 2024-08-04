@@ -23,7 +23,7 @@
   </el-button>
 </div>
 
-<div v-html="noteData.content"></div>
+<div id="main_content" v-html="noteData.content"></div>
 
 </template>
 
@@ -51,14 +51,18 @@ const noteData: Ref<Note> = ref({
   content: '',
 })
 
-const toHtml = (markdown: string): void => {
-  const options: IPreviewOptions = {
+const options: IPreviewOptions = {
     mode: "light", 
-    cdn: ' https://unpkg.com/vditor@3.10.4'
+    cdn: ' https://unpkg.com/vditor@3.10.4',
+  
   }
+
+const toHtml = (markdown: string): void => {
+  
   Vditor.md2html(markdown, options).then(html => {
     noteData.value.content = html
   })
+ 
 }
 
 onMounted(() => {
