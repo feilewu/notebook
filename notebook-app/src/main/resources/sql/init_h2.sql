@@ -9,7 +9,7 @@ create table NOTES
     AUTHOR_ID   INTEGER,
     EDITOR_ID   INTEGER,
     CREATE_TIME DATE,
-    MODIFY_TIME INTEGER
+    MODIFY_TIME DATE
 );
 
 comment on column NOTES.N_ID is 'note id';

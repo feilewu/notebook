@@ -13,7 +13,7 @@
   
   <script lang="ts" setup>
   import type Node from 'element-plus/es/components/tree/src/model/node'
-  import {getCatalogNode} from '../http/api'
+  import {getCatalogNode, Response} from '../http/api'
   import { AxiosResponse } from 'axios';
 
   interface Tree {
@@ -35,9 +35,11 @@
     //if (node.level > 1) return resolve([])
   
     setTimeout(async () => {
-      let data: AxiosResponse<Tree[]> = await getCatalogNode(node.key + '')
-      console.log(data.data)
-      resolve(data.data)
+      let resp: AxiosResponse<Response> = await getCatalogNode(node.key + '')
+      console.log(resp)
+      let response: Response = resp.data
+      let tree: Tree[] = response.data
+      resolve(tree)
     }, 500)
   }
 

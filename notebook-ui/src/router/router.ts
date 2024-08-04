@@ -24,8 +24,14 @@ const routes = [
     redirect:'/home'
   },
   {
-    path:'/edit/:id',
+    path:'/edit/:noteId',
     name: 'edit',
+    component:Edit,
+    props: true
+  },
+  {
+    path:'/create',
+    name: 'create',
     component:Edit
   }
 ]

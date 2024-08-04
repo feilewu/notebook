@@ -35,9 +35,15 @@ public class NoteApi {
     @Autowired
     private NoteService noteService;
 
-    @PutMapping("")
-    public Long putNote(@RequestBody NoteDto noteDto) {
+    @PostMapping("")
+    public Long addNote(@RequestBody NoteDto noteDto) {
         return noteService.addOneNote(noteDto);
+    }
+
+
+    @PutMapping("")
+    public Integer updateNote(@RequestBody NoteDto noteDto) {
+        return noteService.updateOneNode(noteDto);
     }
 
     @GetMapping("/{noteId}")

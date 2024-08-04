@@ -66,6 +66,22 @@ public class NoteService {
     }
 
 
+    public int updateOneNode(NoteDto noteDto) {
+        NoteEntity noteEntity = NoteEntity.builder()
+                .id(noteDto.getId())
+                .title(noteDto.getTitle())
+                .content(noteDto.getContent())
+                .authorId(noteDto.getAuthorId())
+                .editorId(noteDto.getEditorId())
+                .createTime(noteDto.getCreateTime())
+                .modifyTime(noteDto.getModifyTime())
+                .build();
+
+
+        return noteMapper.updateNoteById(noteEntity);
+    }
+
+
     public NoteEntity getOneNote(long noteId) {
         return noteMapper.getNoteById(noteId);
     }

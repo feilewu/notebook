@@ -1,5 +1,7 @@
 // import {VUE_APP_BASE_CONFIG} from "../config/config"
 import axios from 'axios'
+import { AxiosResponse } from 'axios';
+
 
 const service = axios.create({
   // baseURL: VUE_APP_BASE_CONFIG.baseUrl,
@@ -24,10 +26,13 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     // 响应后处理
+    let httpResponse: AxiosResponse<Response>;
     if (response.status === 200 && response.data.code === 200) {
-      return Promise.resolve(response.data)
+        httpResponse = response
+      return Promise.resolve(httpResponse)
     } else {
-      return Promise.reject(response.data)
+      httpResponse = response
+      return Promise.reject(httpResponse)
     }
   },
   error => {

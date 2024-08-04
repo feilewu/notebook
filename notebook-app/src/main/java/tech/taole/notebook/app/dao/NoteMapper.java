@@ -38,6 +38,11 @@ public interface NoteMapper {
     int insertNote(NoteEntity noteEntity);
 
 
+    @Update("update notes set N_TITLE=#{title}, N_CONTENT=#{content}, AUTHOR_ID=#{authorId}, EDITOR_ID=#{editorId}," +
+            " CREATE_TIME=#{createTime}, MODIFY_TIME=#{modifyTime} where N_ID=#{id}")
+    int updateNoteById(NoteEntity noteEntity);
+
+
     @Results(id = "noteResultMap", value = {
             @Result(id = true, column = "N_ID", property = "id"),
             @Result(column = "N_TITLE", property = "title"),

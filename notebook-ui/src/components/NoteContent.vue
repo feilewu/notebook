@@ -7,6 +7,7 @@
       type="info"
       text
       size="large"
+      v-on:click="toNewNote"
     >
     新建
   </el-button>
@@ -16,8 +17,9 @@
       type="info"
       text
       size="large"
+      v-on:click="toEditor"
     >
-    <a :href="'#/edit/' + noteData.id">编辑</a>
+    编辑
   </el-button>
 </div>
 
@@ -28,9 +30,10 @@
 <script setup lang="ts">
 
 import {onMounted, onUpdated, ref, Ref} from 'vue';
-import {getNoteById} from '../http/api'
+import {getNoteById, Response} from '../http/api'
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
+import router from '../router/router';
 
 const props = defineProps({
   noteId: String,
@@ -60,31 +63,54 @@ const toHtml = (markdown: string): void => {
 
 onMounted(() => {
   getNoteById(props.noteId as string).then(
-      (note) => {
-        if (note.data === null) {
+      (resp) => {
+        let response: Response = resp.data
+
+        if (response.data === null) {
           alert("can not get note msg with noteId: " + props.noteId)
           throw "can not get note msg with noteId: " + props.noteId
         }
-        noteData.value.id = note.data.id
-        noteData.value.title = note.data.title
-        toHtml(note.data.content)
+        noteData.value.id = response.data.id
+        noteData.value.title = response.data.title
+        toHtml(response.data.content)
       }
   )
 })
 
 onUpdated(() => {
   getNoteById(props.noteId as string).then(
-      (note) => {
-        if (note.data === null) {
+      (resp) => {
+        let response: Response = resp.data
+        if (response.data === null) {
           alert("can not get note msg with noteId: " + props.noteId)
           throw "can not get note msg with noteId: " + props.noteId
         }
-        noteData.value.id = note.data.id
-        noteData.value.title = note.data.title
-        toHtml(note.data.content)
+        noteData.value.id = response.data.id
+        noteData.value.title = response.data.title
+        toHtml(response.data.content)
       }
   )
 })
+
+
+const toEditor = () => {
+
+  router.push("/edit/" + noteData.value.id)
+
+  //window.location.href='#/edit/' + noteData.value.id
+}
+
+const toNewNote = () => {
+  router.push({
+    name:"create",
+    state:{
+      parentId: props.noteId
+    }
+    })
+
+
+  //window.location.href='#/edit/' + noteData.value.id
+}
 
 
 // watch(
