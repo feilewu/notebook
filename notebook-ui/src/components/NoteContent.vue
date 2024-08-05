@@ -34,6 +34,9 @@ import {getNoteById, Response} from '../http/api'
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
 import router from '../router/router';
+import 'highlight.js/styles/atom-one-light.css' // 样式 
+import 'highlight.js/lib/common' // 依赖包
+import hljs from "highlight.js";
 
 const props = defineProps({
   noteId: String,
@@ -62,38 +65,38 @@ const toHtml = (markdown: string): void => {
   Vditor.md2html(markdown, options).then(html => {
     noteData.value.content = html
   })
- 
+}
+
+const render = () => {
+
+  getNoteById(props.noteId as string).then(
+      (resp) => {
+        let response: Response = resp.data
+
+        if (response.data === null) {
+          alert("can not get note msg with noteId: " + props.noteId)
+          throw "can not get note msg with noteId: " + props.noteId
+        }
+        noteData.value.id = response.data.id
+        noteData.value.title = response.data.title
+        console.log("准备渲染文章")
+        toHtml(response.data.content)
+      }
+  )
 }
 
 onMounted(() => {
-  getNoteById(props.noteId as string).then(
-      (resp) => {
-        let response: Response = resp.data
-
-        if (response.data === null) {
-          alert("can not get note msg with noteId: " + props.noteId)
-          throw "can not get note msg with noteId: " + props.noteId
-        }
-        noteData.value.id = response.data.id
-        noteData.value.title = response.data.title
-        toHtml(response.data.content)
-      }
-  )
+  render()
+  document.querySelectorAll('pre code').forEach((el) => {
+    hljs.highlightElement(el as HTMLElement);
+  });
 })
 
 onUpdated(() => {
-  getNoteById(props.noteId as string).then(
-      (resp) => {
-        let response: Response = resp.data
-        if (response.data === null) {
-          alert("can not get note msg with noteId: " + props.noteId)
-          throw "can not get note msg with noteId: " + props.noteId
-        }
-        noteData.value.id = response.data.id
-        noteData.value.title = response.data.title
-        toHtml(response.data.content)
-      }
-  )
+  render()
+  document.querySelectorAll('pre code').forEach((el) => {
+    hljs.highlightElement(el as HTMLElement);
+  });
 })
 
 
@@ -139,7 +142,11 @@ const toNewNote = () => {
 <style scoped>
 .note-title {
   color: #000000;
-  font-size: 32px;
+  font-size: 36px;
+  font-family: "Arial, Helvetica, sans-serif";
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: bolder;
 }
 
 .button-group {
@@ -150,6 +157,30 @@ a:link {
   color: #000;
   text-decoration: none;
 }
+</style>
 
+<style>
+  table {
+    border-collapse: collapse;
+    /* margin: 0 auto; */
+    text-align: center;
+    width: 70%;
+    table-layout: fixed;
+  }
+  table td, table th {
+    border: 1px solid #cad9ea;
+    color: #666;
+    height: 30px;
+  }
+  table thead th {
+    background-color: #CCE8EB;
+    width: 100px;
+  }
+  table tr:nth-child(odd) {
+    background: #fff;
+  }
+  table tr:nth-child(even) {
+    background: #F5FAFA;
+  }
 
 </style>

@@ -6,6 +6,7 @@
       :load="loadNode"
       node-key="id"
       lazy
+      :expand-on-click-node="false"
       @node-click="handleNodeClick"
       
     ></el-tree>
