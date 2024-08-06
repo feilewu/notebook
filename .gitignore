@@ -88,4 +88,8 @@ notebook-ui/dist
 
 notebook-ui/node_modules
 
+notebook-ui/node
+
+notebook-app/src/main/resources/ui
+
 

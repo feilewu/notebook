@@ -11,6 +11,7 @@
     <modules>
         <module>notebook-app</module>
         <module>notebook-ui</module>
+        <module>assembly</module>
     </modules>
 
     <properties>
@@ -29,6 +30,8 @@
         <mybatis.version>3.5.14</mybatis.version>
         <mybatis-spring.version>2.1.2</mybatis-spring.version>
         <h2-database.version>2.3.230</h2-database.version>
+        <build.copyDependenciesPhase>none</build.copyDependenciesPhase>
+        <jars.target.dir>${project.build.directory}/jars</jars.target.dir>
     </properties>
 
 
@@ -149,6 +152,41 @@
 
         </dependencies>
     </dependencyManagement>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-module-dependencies</id>
+                        <phase>${build.copyDependenciesPhase}</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${jars.target.dir}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+
+    </build>
 
 
 </project>
