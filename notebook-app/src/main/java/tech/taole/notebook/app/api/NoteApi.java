@@ -52,7 +52,10 @@ public class NoteApi {
     }
 
 
-
+    @DeleteMapping("/{noteId}")
+    public Boolean deleteNoteById(@PathVariable("noteId") String noteId) {
+        return noteService.deleteNoteById(Long.parseLong(noteId));
+    }
     
 
 }

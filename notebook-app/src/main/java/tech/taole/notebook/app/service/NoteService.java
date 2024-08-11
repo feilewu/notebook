@@ -101,6 +101,23 @@ public class NoteService {
     }
 
 
+    public boolean deleteNoteById(long noteId) {
+
+        List<NoteEntity> childrenNote = noteMapper.getChildrenNote(noteId);
+        if (!childrenNote.isEmpty()) {
+            return false;
+        }
+
+        int delete = noteMapper.deleteNodeById(noteId);
+        if (delete == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
+
 
 
 

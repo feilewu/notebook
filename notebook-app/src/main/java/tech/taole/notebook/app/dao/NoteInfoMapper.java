@@ -21,9 +21,7 @@
  */
 package tech.taole.notebook.app.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.*;
 import tech.taole.notebook.app.entity.NoteInfoEntity;
 
 @Mapper
@@ -35,6 +33,14 @@ public interface NoteInfoMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "ID")
     int insertNoteInfo(NoteInfoEntity noteInfoEntity);
 
+    @Results(id = "noteInfoResultMap", value = {
+            @Result(id = true, column = "ID", property = "id"),
+            @Result(column = "N_ID", property = "noteId"),
+            @Result(column = "PARENT_NOTE_ID", property = "parentNoteId"),
+            @Result(column = "S_ID", property = "spaceId")
+    })
+    @Select("select * from NOTES_INFO where N_ID=#{noteId}")
+    NoteInfoEntity getNoteINFOById(Long noteId);
 
 
 }

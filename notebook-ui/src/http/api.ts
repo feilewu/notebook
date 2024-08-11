@@ -49,6 +49,12 @@ export function updateNoteById(note: Note){
   })
 }
 
+export function deleteNoteById(key: String){
+  return service({
+    url: '/api/note/' + key,
+    method: 'delete'
+  })
+}
 
 
 

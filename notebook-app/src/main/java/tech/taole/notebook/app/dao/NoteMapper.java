@@ -65,5 +65,7 @@ public interface NoteMapper {
             "where INFO.PARENT_NOTE_ID=#{noteId}")
     List<NoteEntity> getChildrenNote(Long noteId);
 
+    @Delete("delete from NOTES where NOTES.N_ID=#{noteId}")
+    int deleteNodeById(Long noteId);
 
 }

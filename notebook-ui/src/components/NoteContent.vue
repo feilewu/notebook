@@ -23,6 +23,17 @@
     >
     编辑
   </el-button>
+
+  <el-button
+      key="info"
+      type="info"
+      text
+      size="large"
+      v-on:click="handleDelete"
+    >
+    删除
+  </el-button>
+
 </div>
 
 </div>
@@ -34,7 +45,7 @@
 <script setup lang="ts">
 
 import {onMounted, onUpdated, ref, Ref} from 'vue';
-import {getNoteById, Response} from '../http/api'
+import {getNoteById, deleteNoteById, Response} from '../http/api'
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
 import router from '../router/router';
@@ -117,6 +128,24 @@ const toNewNote = () => {
     }
     })
 }
+
+const handleDelete = () => {
+
+  deleteNoteById(props.noteId as string)
+  .then(
+    (resp) => {
+      let response: Response = resp.data
+      if (response.data === true) {
+        router.back()
+      } else{
+        alert("删除失败")
+      }
+    }
+  )
+
+}
+
+
 
 </script>
 
