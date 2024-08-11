@@ -3,7 +3,6 @@ import Home from "../components/Home.vue";
 import Edit from "../components/Edit.vue";
 import NoteContent from "../components/NoteContent.vue";
 
-
 const routes = [
   {
     path:'/home',

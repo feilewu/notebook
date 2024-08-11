@@ -3,7 +3,9 @@
       <el-col :span="6">
         <div class="grid-content ep-bg-purple">
           <!-- <div id="main-catalog"><CatalogTree @nodeClickEvent="nodeClick"></CatalogTree></div> -->
-          <div id="main-catalog"><CatalogTree></CatalogTree></div>
+          <div id="main-catalog">
+              <CatalogTree></CatalogTree>       
+          </div>
         </div>
       </el-col>
       <el-col :span="18">

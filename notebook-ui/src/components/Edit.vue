@@ -1,10 +1,9 @@
 <template>
-    <div>
-      <el-input v-model="note.title" class="input" placeholder="Note title" />
-    </div>
-
     <div style="float: right; margin-top: 8px; margin-bottom: 8px; margin-right: 30px;">
       <el-button type="primary" v-on:click="saveNote">保存</el-button>
+    </div>
+    <div>
+      <el-input v-model="note.title" class="input" placeholder="Note title" />
     </div>
     <!-- 编辑器的容器，注意id要和 new Vditor 绑定的值一致-->
     <div id="vditor"></div>
@@ -15,6 +14,7 @@
 import Vditor from 'vditor'
 import { onMounted, ref, Ref } from 'vue'
 import {getNoteById, createNote, updateNoteById, Note, Response} from '../http/api'
+import router from '../router/router';
 
 let vditor: Vditor;
 
@@ -63,7 +63,7 @@ onMounted(() => {
         let response: Response = resp.data
         if (resp.data != null){
           note.value.id = response.data.id
-          note.value.title = response.data.title
+          note.value.title = response.data.title.trim()
           note.value.content=response.data.content
           note.value.authorId=response.data.authorId
           note.value.editorId=response.data.editorId
@@ -95,8 +95,13 @@ const saveNote = async () => {
     throw "failed to create or update note"
   }
   if (note.value.id) {
+
+    //router.back()
+
     window.location.href='#home/page/' + note.value.id
   } else {
+    
+    //router.back()
     window.location.href='#home/page/' + response.data
   }
 
@@ -111,6 +116,8 @@ const saveNote = async () => {
   height: 40px;
   font-size: 17px;
 }
+
+
 
 
 

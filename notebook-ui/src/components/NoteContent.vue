@@ -1,7 +1,18 @@
 <template>
 <div class="note-title">{{noteData.title}}</div>
 
-<div class="button-group">
+<div>
+
+  <el-breadcrumb separator="/">
+    <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
+    <el-breadcrumb-item>
+      <a href="/">promotion management</a>
+    </el-breadcrumb-item>
+    <el-breadcrumb-item>promotion list</el-breadcrumb-item>
+    <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+  </el-breadcrumb>
+  
+  <div class="button-group">
   <el-button
       key="info"
       type="info"
@@ -22,6 +33,11 @@
     编辑
   </el-button>
 </div>
+
+</div>
+
+
+
 
 <div id="main_content" v-html="noteData.content"></div>
 
@@ -81,6 +97,7 @@ const render = () => {
         noteData.value.title = response.data.title
         console.log("准备渲染文章")
         toHtml(response.data.content)
+        
       }
   )
 }
@@ -88,14 +105,14 @@ const render = () => {
 onMounted(() => {
   render()
   document.querySelectorAll('pre code').forEach((el) => {
-    hljs.highlightElement(el as HTMLElement);
+        hljs.highlightElement(el as HTMLElement);
   });
 })
 
 onUpdated(() => {
   render()
   document.querySelectorAll('pre code').forEach((el) => {
-    hljs.highlightElement(el as HTMLElement);
+        hljs.highlightElement(el as HTMLElement);
   });
 })
 

@@ -15,19 +15,19 @@
   <script lang="ts" setup>
   import type Node from 'element-plus/es/components/tree/src/model/node'
   import {getCatalogNode, Response} from '../http/api'
-  import { AxiosResponse } from 'axios';
+  import { AxiosResponse } from 'axios'
+  import { Tree } from '../type'
+  //import { catalogTreeStore } from '../store'
 
-  interface Tree {
-    id: string
-    name: string
-    leaf?: boolean
-  }
-  
   const props = {
     label: 'name',
     children: 'zones',
     isLeaf: 'leaf',
   }
+
+  //const treeStore = catalogTreeStore()
+  
+  // const data: Tree[] = catalogTreeStore().data
 
   const loadNode = (node: Node, resolve: (data: Tree[]) => void) => {
     if (node.level === 0) {
