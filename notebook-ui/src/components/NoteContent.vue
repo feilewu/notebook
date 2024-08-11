@@ -3,15 +3,6 @@
 
 <div>
 
-  <el-breadcrumb separator="/">
-    <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-    <el-breadcrumb-item>
-      <a href="/">promotion management</a>
-    </el-breadcrumb-item>
-    <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-    <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
-  </el-breadcrumb>
-  
   <div class="button-group">
   <el-button
       key="info"
@@ -36,9 +27,6 @@
 
 </div>
 
-
-
-
 <div id="main_content" v-html="noteData.content"></div>
 
 </template>
@@ -55,6 +43,7 @@ import 'highlight.js/lib/common' // 依赖包
 import hljs from "highlight.js";
 
 const props = defineProps({
+  spaceId: String,
   noteId: String,
 })
 
@@ -95,7 +84,6 @@ const render = () => {
         }
         noteData.value.id = response.data.id
         noteData.value.title = response.data.title
-        console.log("准备渲染文章")
         toHtml(response.data.content)
         
       }
@@ -118,10 +106,7 @@ onUpdated(() => {
 
 
 const toEditor = () => {
-
-  router.push("/edit/" + noteData.value.id)
-
-  //window.location.href='#/edit/' + noteData.value.id
+  router.push(router.currentRoute.value.path + "/edit")
 }
 
 const toNewNote = () => {
@@ -131,28 +116,7 @@ const toNewNote = () => {
       parentId: props.noteId
     }
     })
-
-
-  //window.location.href='#/edit/' + noteData.value.id
 }
-
-
-// watch(
-//     () => props.noteId,
-//     (noteId) => {
-//         console.log("props of noteContent has changed!")
-//         getNoteById(noteId as string).then(
-//             (note) => {
-//               if (note.data === null) {
-//                 alert("can not get note msg with noteId: " + noteId)
-//                 throw "can not get note msg with noteId: " + noteId
-//               }
-//               noteData.value.id = note.data.id
-//               noteData.value.title = note.data.title
-//               toHtml(note.data.content)
-//             })
-//     }
-// );
 
 </script>
 

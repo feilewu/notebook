@@ -19,6 +19,7 @@ import router from '../router/router';
 let vditor: Vditor;
 
 const props = defineProps({
+  spaceId: String,
   noteId: String,
 })
 
@@ -96,13 +97,16 @@ const saveNote = async () => {
   }
   if (note.value.id) {
 
-    //router.back()
+    router.back()
 
-    window.location.href='#home/page/' + note.value.id
+    //window.location.href='#home/page/' + note.value.id
   } else {
-    
+    const createdNoteId = response.data
+    const currentPath = router.currentRoute.value.path
+    router.push(currentPath.replace("create", createdNoteId))
+
     //router.back()
-    window.location.href='#home/page/' + response.data
+    //.location.href='#home/page/' + response.data
   }
 
 }

@@ -1,4 +1,4 @@
-<template>
+  <template>
     <el-tree
       ref="treeRef"
       style="max-width: 600px"
@@ -8,7 +8,6 @@
       lazy
       :expand-on-click-node="false"
       @node-click="handleNodeClick"
-      
     ></el-tree>
   </template>
   
@@ -17,6 +16,7 @@
   import {getCatalogNode, Response} from '../http/api'
   import { AxiosResponse } from 'axios'
   import { Tree } from '../type'
+  import router from '../router/router';
   //import { catalogTreeStore } from '../store'
 
   const props = {
@@ -24,6 +24,13 @@
     children: 'zones',
     isLeaf: 'leaf',
   }
+
+  const info = defineProps({
+    spaceId: {
+      type: String,
+      defalt: "-1"
+    }
+  })
 
   //const treeStore = catalogTreeStore()
   
@@ -48,11 +55,16 @@
   }>()
 
   const handleNodeClick = (data: any) => {
-    //if (data.id != 0) {
-      //emit('nodeClickEvent', data.id)
-      console.log(data.id)
-      window.location.href='#home/page/' + data.id
-    //} 
+
+    if (data.id == 0) {
+
+      router.push({
+        name: "space"
+      })
+      return
+    }
+
+    router.push("/space/" + info.spaceId + "/page/" + data.id)
   }
 
   </script>
