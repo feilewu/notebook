@@ -19,13 +19,14 @@
             <directory>${project.basedir}/../bin</directory>
             <includes>
                 <include>*.sh</include>
+                <include>*.cmd</include>
             </includes>
             <outputDirectory>bin</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../notebook-ui/dist</directory>
             <includes>
-                <include>*.*</include>
+                <include>**/*</include>
             </includes>
             <outputDirectory>ui</outputDirectory>
         </fileSet>

@@ -37,7 +37,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import tech.taole.notebook.app.utils.IOUtil;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -87,8 +89,10 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String jarPath = IOUtil.getJarPath(this.getClass());
+        String uiPath = new File(jarPath).getParent() + File.separator + "ui" + File.separator;
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:static/");
-        registry.addResourceHandler("/ui/**").addResourceLocations("classpath:ui/");
+        registry.addResourceHandler("/ui/**").addResourceLocations("file:" + uiPath);
     }
 
 }

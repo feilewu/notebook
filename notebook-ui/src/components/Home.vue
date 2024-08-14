@@ -42,7 +42,7 @@
 
   watch(
       () => router.currentRoute.value.path,
-      (n, o) => {
+      (n, ) => {
         if (n.endsWith('edit')) {
           info.value.showCatalog = false
           info.value.catalogColSize = 0

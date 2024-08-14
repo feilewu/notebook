@@ -28,10 +28,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class SiteController {
 
 
-    @GetMapping("/")
+    @GetMapping("/ui")
     public String index() {
-        return "index";
+        return "redirect:/ui/index.html";
     }
-
 
 }
