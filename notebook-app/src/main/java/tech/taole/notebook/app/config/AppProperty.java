@@ -1,5 +1,3 @@
-package tech.taole.notebook.app;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,22 +14,24 @@ package tech.taole.notebook.app;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import org.h2.tools.Server;
-
 /**
  * @Author: pf_xu
- * @Date: 2024/7/16 22:21
+ * @Date: 2024/8/16 22:21
  * @email：pfxuchn@gmail.com
  */
-public class Main {
-    public static void main(String[] args) throws Exception {
+package tech.taole.notebook.app.config;
 
-        Server.createTcpServer("-tcpAllowOthers").start();
-        Server.createWebServer("-webAllowOthers").start();
-        JettyServer server = new JettyServer();
-        server.start();
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
+@Component
+@PropertySource("classpath:properties/app.properties")
+@Data
+public class AppProperty {
 
-    }
+    @Value("${database.refresh}")
+    private Boolean refreshEnable;
+
 }
